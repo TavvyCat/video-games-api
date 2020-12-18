@@ -5,13 +5,9 @@ from django.contrib.auth import get_user_model
 class Game(models.Model):
   # define fields
   # https://docs.djangoproject.com/en/3.0/ref/models/fields/
-  name = models.CharField(max_length=100)
-  description = models.CharField(max_length=1000)
+  name = models.CharField(max_length=100, unique=True)
+  description = models.CharField(max_length=10000)
   price = models.FloatField()
-  # owner = models.ForeignKey(
-  #     get_user_model(),
-  #     on_delete=models.CASCADE
-  # )
 
   def __str__(self):
     # This must return a string

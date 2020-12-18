@@ -8,10 +8,8 @@ class Review(models.Model):
   head = models.CharField(max_length=100)
   body = models.CharField(max_length=1000)
   rating = models.SmallIntegerField()
-  owner = models.ForeignKey(
-    get_user_model(),
-    on_delete=models.CASCADE
-  )
+  game_id = models.ForeignKey('Game', related_name='reviews', on_delete=models.CASCADE)
+  owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
   def __str__(self):
     # This must return a string

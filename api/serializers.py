@@ -3,11 +3,25 @@ from rest_framework import serializers
 
 from .models.game import Game
 from .models.user import User
+from .models.review import Review
+        
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('head', 'body', 'rating', 'game_id', 'owner')
 
+class ReviewReadSerializer(ReviewSerializer):
+    owner = serializers.StringRelatedField()
+    game = serializers.StringRelatedField(source='game_id')
+    class Meta:
+        model = Review
+        fields = ('id', 'head', 'body', 'rating', 'owner', 'game',)
+        
 class GameSerializer(serializers.ModelSerializer):
+    reviews = ReviewReadSerializer(many=True, read_only=True)
     class Meta:
         model = Game
-        fields = ('id', 'name', 'description', 'price')
+        fields = ('id', 'name', 'description', 'price', 'reviews',)
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
@@ -17,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
         # get_user_model will get the user model (this is required)
         # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#referencing-the-user-model
         model = get_user_model()
-        fields = ('id', 'email', 'password')
+        fields = ('id', 'email', 'password', 'username')
         extra_kwargs = { 'password': { 'write_only': True, 'min_length': 5 } }
 
     # This create method will be used for model creation

@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models.mango import Mango
+from .models.game import Game
 from .models.user import User
 
-class MangoSerializer(serializers.ModelSerializer):
+class GameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Mango
-        fields = ('id', 'name', 'color', 'ripe', 'owner')
+        model = Game
+        fields = ('id', 'name', 'description', 'price')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
@@ -26,7 +26,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserRegisterSerializer(serializers.Serializer):
     # Require email, password, and password_confirmation for sign up
-    email = serializers.CharField(max_length=300, required=True)
+    email = serializers.CharField(max_length=100, required=True)
+    username = serializers.CharField(max_length=100, required=True)
     password = serializers.CharField(required=True)
     password_confirmation = serializers.CharField(required=True, write_only=True)
 

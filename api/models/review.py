@@ -7,7 +7,7 @@ class Review(models.Model):
   # https://docs.djangoproject.com/en/3.0/ref/models/fields/
   head = models.CharField(max_length=100)
   body = models.CharField(max_length=1000)
-  rating = models.SmallIntegerField()
+  rating = models.FloatField()
   game_id = models.ForeignKey('Game', related_name='reviews', on_delete=models.CASCADE)
   owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 

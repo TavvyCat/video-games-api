@@ -15,13 +15,13 @@ class ReviewReadSerializer(ReviewSerializer):
     game = serializers.StringRelatedField(source='game_id')
     class Meta:
         model = Review
-        fields = ('id', 'head', 'body', 'rating', 'owner', 'game',)
+        fields = ('id', 'head', 'body', 'rating', 'owner', 'game')
         
 class GameSerializer(serializers.ModelSerializer):
     reviews = ReviewReadSerializer(many=True, read_only=True)
     class Meta:
         model = Game
-        fields = ('id', 'title', 'description', 'price', 'reviews',)
+        fields = ('id', 'title', 'description', 'price', 'reviews')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation

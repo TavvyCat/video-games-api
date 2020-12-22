@@ -11,7 +11,7 @@ from ..serializers import GameSerializer, UserSerializer
 class Games(generics.ListCreateAPIView):
     permission_classes_by_method = {
         'GET': (),
-        'POST': (),
+        'POST': (IsAuthenticated),
     }
     serializer_class = GameSerializer
     def get(self, request):
@@ -72,10 +72,10 @@ class GameDetail(generics.RetrieveUpdateDestroyAPIView):
         # Locate game to update
         game = get_object_or_404(Game, pk=pk)
 
-        game = GameSerializer(game, data=request.data)
-        if game.is_valid():
-            game.save()
-            return Response({ 'game': game })
+        data = GameSerializer(game, data=request.data)
+        if data.is_valid():
+            data.save()
+            return Response({ 'game': data.data })
         # If the data is not valid, return a response with the errors
         return Response(game.errors, status=status.HTTP_400_BAD_REQUEST)
     

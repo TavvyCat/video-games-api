@@ -11,7 +11,7 @@ from ..serializers import ReviewSerializer, ReviewReadSerializer, UserSerializer
 class Reviews(generics.ListCreateAPIView):
     permission_classes_by_method = {
         'GET': (),
-        'POST': (IsAuthenticated,),
+        'POST': (),
     }
     serializer_class = ReviewSerializer
     def get(self, request):
@@ -50,8 +50,8 @@ class Reviews(generics.ListCreateAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes_by_method = {
         'GET': (),
-        'PATCH': (IsAuthenticated,),
-        'DELETE': (IsAuthenticated,),
+        'PATCH': (),
+        'DELETE': (),
     }
     serializer_class = ReviewSerializer
     def get(self, request, pk):
@@ -94,7 +94,7 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
         if review.is_valid():
             # Save & send a 204 no content
             review.save()
-            return Response({ 'review': review })
+            return Response({ 'review': review.data })
         # If the data is not valid, return a response with the errors
         return Response(review.errors, status=status.HTTP_400_BAD_REQUEST)
     

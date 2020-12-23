@@ -18,6 +18,6 @@ class Game(models.Model):
     return {
         'id': self.id,
         'title': self.title,
-        'ripe': self.ripe,
-        'color': self.color
+        'description': self.description,
+        'price': self.price
     }

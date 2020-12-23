@@ -11,7 +11,7 @@ from ..serializers import GameSerializer, UserSerializer
 class Games(generics.ListCreateAPIView):
     permission_classes_by_method = {
         'GET': (),
-        'POST': (IsAuthenticated),
+        'POST': (),
     }
     serializer_class = GameSerializer
     def get(self, request):

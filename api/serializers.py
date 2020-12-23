@@ -11,11 +11,11 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('head', 'body', 'rating', 'game_id', 'owner')
 
 class ReviewReadSerializer(ReviewSerializer):
-    owner = serializers.StringRelatedField()
+    owner_name = serializers.StringRelatedField(source='owner')
     game = serializers.StringRelatedField(source='game_id')
     class Meta:
         model = Review
-        fields = ('id', 'head', 'body', 'rating', 'owner', 'game')
+        fields = ('id', 'head', 'body', 'rating', 'owner', 'owner_name', 'game', 'game_id')
         
 class GameSerializer(serializers.ModelSerializer):
     reviews = ReviewReadSerializer(many=True, read_only=True)

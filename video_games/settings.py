@@ -26,6 +26,8 @@ if os.getenv('ENV') == 'development':
   DB = {
       'ENGINE': 'django.db.backends.postgresql',
       'NAME': DB_NAME,
+      'USER': 'postgres',
+      'PASSWORD': 'Darkness37'
   }
   # Set debug to true
   DEBUG = True
@@ -79,6 +81,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -88,6 +91,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'video_games.urls'
 

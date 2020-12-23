@@ -20,7 +20,7 @@ class SignUp(generics.CreateAPIView):
 
     def post(self, request):
         # Pass the request data to the serializer to validate it
-        user = UserRegisterSerializer(data=request.data['credentials'])
+        user = UserRegisterSerializer(data=request.data)
         # If that data is in the correct format...
         if user.is_valid():
             # Actually create the user using the UserSerializer (the `create` method defined there)
@@ -45,7 +45,7 @@ class SignIn(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        creds = request.data['credentials']
+        creds = request.data
         print(creds)
         # We can pass our email and password along with the request to the
         # `authenticate` method. If we had used the default user, we would need
@@ -62,7 +62,8 @@ class SignIn(generics.CreateAPIView):
                     'user': {
                         'id': user.id,
                         'email': user.email,
-                        'token': user.get_auth_token()
+                        'token': user.get_auth_token(),
+                        'username': user.username
                     }
                 })
             else:
@@ -82,7 +83,7 @@ class ChangePassword(generics.UpdateAPIView):
     def partial_update(self, request):
         user = request.user
         # Pass data through serializer
-        serializer = ChangePasswordSerializer(data=request.data['passwords'])
+        serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
             # This is included with the Django base user model
             # https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.check_password

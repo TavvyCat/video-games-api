@@ -1,2 +1,2 @@
-web: gunicorn video-game-api.wsgi
+web: gunicorn video_games.wsgi
 release: python manage.py migrate

@@ -1,10 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-# Create your models here.
 class Review(models.Model):
-  # define fields
-  # https://docs.djangoproject.com/en/3.0/ref/models/fields/
   head = models.CharField(max_length=100)
   body = models.CharField(max_length=1000)
   rating = models.FloatField()
@@ -12,7 +9,6 @@ class Review(models.Model):
   owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
   def __str__(self):
-    # This must return a string
     return self.head
 
   def as_dict(self):

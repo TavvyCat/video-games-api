@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from django.shortcuts import get_object_or_404
 
 from ..models.review import Review
-from ..serializers import ReviewSerializer, ReviewReadSerializer, UserSerializer
+from ..serializers import ReviewSerializer, ReviewReadSerializer
 
 # Create your views here.
 class Reviews(generics.ListCreateAPIView):
